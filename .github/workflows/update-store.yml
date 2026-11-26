@@ -1,0 +1,63 @@
+name: Update Open-Source Font Store
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Optional space-separated font IDs to rebuild (leave empty for all)"
+        required: false
+        default: ""
+      publish_release:
+        description: "Upload generated ZIPs to the fonts-v1 GitHub Release"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-store:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y p7zip-full fonts-noto-cjk
+          python -m pip install --upgrade pip fonttools pillow
+
+      - name: Build font packages, previews, and fonts.json
+        run: |
+          if [ -n "${{ github.event.inputs.only }}" ]; then
+            python scripts/build_store.py --only ${{ github.event.inputs.only }}
+          else
+            python scripts/build_store.py
+          fi
+
+      - name: Upload ZIP assets to Release fonts-v1
+        if: ${{ inputs.publish_release }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG=$(python -c "import json; print(json.load(open('sources.json'))['releaseTag'])")
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "Ziyu Open-Source Fonts ($TAG)" --notes "开源协议字体包合集，供字域 App 在线字体库校验下载。"
+          fi
+          gh release upload "$TAG" dist-releases/*.zip --clobber
+
+      - name: Commit updated fonts.json and previews
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fonts.json previews/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(store): rebuild fonts.json and specimen previews"
+            git push
+          fi
