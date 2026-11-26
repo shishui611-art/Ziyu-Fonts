@@ -220,13 +220,38 @@ def choose_preview_font(infos: list[dict]) -> dict:
 
 def find_ui_fallback_font(bold: bool = False) -> str | None:
     candidates = (
-        [r"C:\Windows\Fonts\msyhbd.ttc", r"C:\Windows\Fonts\simhei.ttf", "/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc"]
+        [
+            r"C:\Windows\Fonts\msyhbd.ttc",
+            r"C:\Windows\Fonts\simhei.ttf",
+            "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+            "/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc",
+            "/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc",
+        ]
         if bold
-        else [r"C:\Windows\Fonts\msyh.ttc", r"C:\Windows\Fonts\simhei.ttf", "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc"]
+        else [
+            r"C:\Windows\Fonts\msyh.ttc",
+            r"C:\Windows\Fonts\simhei.ttf",
+            "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+            "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc",
+            "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+        ]
     )
     for path in candidates:
         if Path(path).is_file():
             return path
+    for base in (Path("/usr/share/fonts"), Path("/usr/local/share/fonts")):
+        if base.is_dir():
+            for hit in sorted(base.rglob("*NotoSansCJK*.ttc")) + sorted(base.rglob("*NotoSansCJK*.otf")):
+                if hit.is_file():
+                    return str(hit)
+    fc_match = shutil.which("fc-match")
+    if fc_match:
+        try:
+            out = subprocess.check_output([fc_match, "-f", "%{file}", "Noto Sans CJK SC"], text=True).strip()
+            if out and Path(out).is_file():
+                return out
+        except Exception:
+            pass
     return None
 
 
