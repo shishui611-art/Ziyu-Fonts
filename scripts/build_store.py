@@ -26,7 +26,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK_DIR = ROOT / ".work"
-PREVIEWS_DIR = ROOT / "previews"
+PREVIEWS_DIR = ROOT / "previews" / "v2"
+PREVIEWS_REL = "previews/v2"
 RELEASES_DIR = ROOT / "dist-releases"
 SOURCES_FILE = ROOT / "sources.json"
 FONTS_JSON = ROOT / "fonts.json"
@@ -278,62 +279,40 @@ def load_specimen_font(font_path: Path, size: int, variable: bool, weight: int |
 
 
 def render_preview(entry: dict, preview_info: dict, all_infos: list[dict], out_path: Path, dark: bool) -> None:
-    width, height = 960, 420
-    bg = (22, 24, 29) if dark else (248, 249, 252)
-    surface = (32, 35, 42) if dark else (255, 255, 255)
-    border = (52, 57, 68) if dark else (228, 232, 240)
-    fg = (242, 244, 248) if dark else (23, 27, 36)
-    sub_fg = (165, 173, 188) if dark else (98, 107, 124)
-    accent = (122, 174, 255) if dark else (38, 102, 214)
-    badge_bg = (42, 50, 66) if dark else (235, 242, 255)
+    """Render a minimalist transparent-background single-line specimen (720x450, 1.6:1).
 
-    img = Image.new("RGB", (width, height), bg)
+    Transparent RGBA lets the card adapt seamlessly to any user theme (Light, Dark,
+    AMOLED Pure Black, Material You, Miuix, COUI, or dynamic wallpaper).
+    """
+    width, height = 720, 450
+    fg = (242, 244, 248, 255) if dark else (24, 28, 36, 255)
+
+    img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    draw.rounded_rectangle((16, 16, width - 16, height - 16), radius=24, fill=surface, outline=border, width=2)
 
-    ui_regular_path = find_ui_fallback_font(bold=False)
-    ui_small = ImageFont.truetype(ui_regular_path, 22) if ui_regular_path else ImageFont.load_default()
-    ui_badge = ImageFont.truetype(ui_regular_path, 20) if ui_regular_path else ImageFont.load_default()
-
-    # Pick bold/regular variants for specimen lines
     reg_path = preview_info["path"]
-    bold_info = max(all_infos, key=lambda x: x["weight"]) if len(all_infos) >= 2 else preview_info
     is_var = preview_info["variable"]
+    default_specimen = "海上升明月" if preview_info["supportsCjk"] else "Hello 09:41"
+    specimen = (entry.get("specimen") or default_specimen).strip()
 
-    # Header tag pill
-    tag_text = "可变字体" if is_var else (f"多字重 · {len(all_infos)} 档" if len(all_infos) >= 2 else "正体")
-    pill_text = f"{entry['style']}  ·  {tag_text}"
-    bbox = draw.textbbox((0, 0), pill_text, font=ui_badge)
-    pill_w = (bbox[2] - bbox[0]) + 28
-    draw.rounded_rectangle((44, 40, 44 + pill_w, 78), radius=14, fill=badge_bg)
-    draw.text((58, 46), pill_text, fill=accent, font=ui_badge)
+    # Auto-fit single centered line with generous horizontal breathing room
+    max_text_width = width - 84
+    start_size = 98 if len(specimen) <= 5 else 82
+    chosen_font = load_specimen_font(reg_path, start_size, is_var, 450)
+    bbox = draw.textbbox((0, 0), specimen, font=chosen_font)
+    for size in range(start_size, 34, -4):
+        cand = load_specimen_font(reg_path, size, is_var, 450)
+        b = draw.textbbox((0, 0), specimen, font=cand)
+        if (b[2] - b[0]) <= max_text_width:
+            chosen_font = cand
+            bbox = b
+            break
 
-    lic_text = entry["license"]
-    lbox = draw.textbbox((0, 0), lic_text, font=ui_badge)
-    draw.text((width - 44 - (lbox[2] - lbox[0]), 46), lic_text, fill=sub_fg, font=ui_badge)
-
-    if preview_info["supportsCjk"]:
-        f_hero = load_specimen_font(bold_info["path"] if not is_var else reg_path, 66, is_var, 600)
-        f_body = load_specimen_font(reg_path, 34, is_var, 400)
-        f_mix = load_specimen_font(reg_path, 30, is_var, 400)
-        draw.text((44, 108), "字域清朗 2026", fill=fg, font=f_hero)
-        draw.text((44, 206), "山水清音，落笔成章；系统阅读更舒适。", fill=fg, font=f_body)
-        draw.text((44, 268), "ColorOS 16 · AaBbCc 0123456789 09:41", fill=sub_fg, font=f_mix)
-    else:
-        f_hero = load_specimen_font(bold_info["path"] if not is_var else reg_path, 68, is_var, 600)
-        f_body = load_specimen_font(reg_path, 38, is_var, 400)
-        f_num = load_specimen_font(reg_path, 34, is_var, 500)
-        draw.text((44, 104), "AaBbCcDd 09:41", fill=fg, font=f_hero)
-        draw.text((44, 202), "The quick brown fox jumps over 12345.", fill=fg, font=f_body)
-        draw.text((44, 266), "0123456789 · 2026-11-26 · 100% 5G", fill=sub_fg, font=f_num)
-
-    # Bottom caption
-    draw.line((44, 336, width - 44, 336), fill=border, width=1)
-    footer_left = f"{entry['name']}  ({entry['englishName']})"
-    draw.text((44, 352), footer_left, fill=sub_fg, font=ui_small)
-    footer_right = entry["version"]
-    rbox = draw.textbbox((0, 0), footer_right, font=ui_small)
-    draw.text((width - 44 - (rbox[2] - rbox[0]), 352), footer_right, fill=sub_fg, font=ui_small)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+    x = (width - text_w) / 2.0 - bbox[0]
+    y = (height - text_h) / 2.0 - bbox[1]
+    draw.text((x, y), specimen, fill=fg, font=chosen_font)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     img.save(out_path, format="PNG", optimize=True)
@@ -460,8 +439,8 @@ def build_entry(entry: dict, release_tag: str, repo_slug: str, proxies: list[str
         "variable": is_variable,
         "weights": weights,
         "format": fmt,
-        "preview": f"previews/{light_png.name}",
-        "previewDark": f"previews/{dark_png.name}",
+        "preview": f"{PREVIEWS_REL}/{light_png.name}",
+        "previewDark": f"{PREVIEWS_REL}/{dark_png.name}",
         "downloadPath": download_path,
         "downloadUrl": f"https://github.com/{repo_slug}/{download_path}",
         "size": zip_size,
@@ -470,15 +449,63 @@ def build_entry(entry: dict, release_tag: str, repo_slug: str, proxies: list[str
     }
 
 
+def repreview_from_zips(config: dict) -> int:
+    """Re-render previews directly from existing dist-releases/*.zip while preserving live fonts.json hashes."""
+    if not FONTS_JSON.is_file():
+        raise FileNotFoundError("fonts.json is required for --repreview-from-zips")
+    live = json.loads(FONTS_JSON.read_text(encoding="utf-8"))
+    by_id = {entry["id"]: entry for entry in config["fonts"]}
+    tmp_root = WORK_DIR / "_repreview"
+    if tmp_root.exists():
+        shutil.rmtree(tmp_root)
+    try:
+        for item in live.get("fonts", []):
+            fid = item["id"]
+            entry = by_id.get(fid, item)
+            zpath = RELEASES_DIR / f"{fid}.zip"
+            if not zpath.is_file():
+                raise FileNotFoundError(f"Missing local ZIP: {zpath}")
+            out_dir = tmp_root / fid
+            out_dir.mkdir(parents=True, exist_ok=True)
+            font_files: list[Path] = []
+            with zipfile.ZipFile(zpath, "r") as zf:
+                for member in zf.infolist():
+                    if member.is_dir() or not member.filename.lower().endswith((".ttf", ".otf")):
+                        continue
+                    dst = out_dir / Path(member.filename).name
+                    with zf.open(member, "r") as src, dst.open("wb") as out:
+                        shutil.copyfileobj(src, out)
+                    font_files.append(dst)
+            infos = sorted((inspect_font(f) for f in font_files), key=lambda x: (x["weight"], x["path"].name))
+            preview_info = choose_preview_font(infos)
+            light_png = PREVIEWS_DIR / f"{fid}.png"
+            dark_png = PREVIEWS_DIR / f"{fid}-dark.png"
+            render_preview(entry, preview_info, infos, light_png, dark=False)
+            render_preview(entry, preview_info, infos, dark_png, dark=True)
+            item["preview"] = f"{PREVIEWS_REL}/{light_png.name}"
+            item["previewDark"] = f"{PREVIEWS_REL}/{dark_png.name}"
+            print(f"  Rendered v2 preview: {fid} -> {entry.get('specimen', '')}", flush=True)
+        live["updatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        FONTS_JSON.write_text(json.dumps(live, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"Updated {FONTS_JSON} previews -> {PREVIEWS_REL}/ (ZIP hashes preserved).")
+        return 0
+    finally:
+        if tmp_root.exists():
+            shutil.rmtree(tmp_root)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--only", nargs="*", help="Build only specific font IDs")
     parser.add_argument("--proxy", default="", help="Preferred GitHub proxy prefix, e.g. https://ghfast.top/")
     parser.add_argument("--force-download", action="store_true")
     parser.add_argument("--clean-work", action="store_true", help="Remove .work download cache after success")
+    parser.add_argument("--repreview-from-zips", action="store_true", help="Re-render previews from existing dist-releases/*.zip without changing ZIP hashes")
     args = parser.parse_args()
 
     config = json.loads(SOURCES_FILE.read_text(encoding="utf-8"))
+    if args.repreview_from_zips:
+        return repreview_from_zips(config)
     release_tag = config["releaseTag"]
     repo_slug = config["repository"]
     proxies = [args.proxy.rstrip("/") + "/"] + DEFAULT_PROXIES if args.proxy else list(DEFAULT_PROXIES)
