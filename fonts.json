@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updatedAt": "2026-11-26T15:06:21Z",
+  "updatedAt": "2026-11-26T16:49:35Z",
   "repository": "shishui611-art/Ziyu-Fonts",
   "releaseTag": "fonts-v1",
   "notice": "仅收录开源协议字体（SIL OFL 1.1），由作者维护并经 SHA-256 校验，暂不开放用户上传。",
@@ -32,7 +32,7 @@
       "downloadPath": "releases/download/fonts-v1/maple-mono-cn.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/maple-mono-cn.zip",
       "size": 92905756,
-      "sha256": "335fc31cdb820e32290e334784f498efe49e4626ba2b111555d8fb7f9ce57574",
+      "sha256": "c7a35f6a683902dfeecd861bfe6666e1671bf4a90443aaa5ed18209f47500389",
       "tags": [
         "中文",
         "等宽",
@@ -65,7 +65,7 @@
       "downloadPath": "releases/download/fonts-v1/lxgw-wenkai.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/lxgw-wenkai.zip",
       "size": 80360463,
-      "sha256": "89117abfd500555e3f3f742355b0f354ea40cf148065ed3a314293c98f0e4e06",
+      "sha256": "db19af062483ab5cdb43349e3709ac70e26efa13f3ade2ec62564909bd81f6bf",
       "tags": [
         "中文",
         "楷体",
@@ -96,7 +96,7 @@
       "downloadPath": "releases/download/fonts-v1/source-han-sans.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/source-han-sans.zip",
       "size": 17754839,
-      "sha256": "50c8c271ea0fba2e9cb8e2cd2da404f10a01420bfbffc7f06d9f2df7a158fe7b",
+      "sha256": "4e785ccc990d8c6ae2b9a6f921dec81425fb138414fdfeafaae24268c4720aec",
       "tags": [
         "中文",
         "黑体",
@@ -131,7 +131,7 @@
       "downloadPath": "releases/download/fonts-v1/sarasa-gothic-sc.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/sarasa-gothic-sc.zip",
       "size": 120161331,
-      "sha256": "a57c3c25355519f0630828aa5f74090fa3eae0998649500a79ebcf86a3545710",
+      "sha256": "294348224e28d81f1ca693dfaca51fa9f637920d76bad3ae331e392f3417e2dd",
       "tags": [
         "中文",
         "黑体",
@@ -166,7 +166,7 @@
       "downloadPath": "releases/download/fonts-v1/ibm-plex-sans-sc.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/ibm-plex-sans-sc.zip",
       "size": 42228596,
-      "sha256": "4e28941acd174e4b7b55280f1bef715c3d374db0a76cf55558e891af072983f1",
+      "sha256": "a97f665e49933c524465eb0b4be134af2e4bf4cf072b86e25e6051fe2b9ef7e8",
       "tags": [
         "中文",
         "黑体",
@@ -197,7 +197,7 @@
       "downloadPath": "releases/download/fonts-v1/source-han-serif.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/source-han-serif.zip",
       "size": 25130087,
-      "sha256": "d1303138aca85da69ad35effd5c49afdcef976473a5b5c7dade53d04eab72d61",
+      "sha256": "618c48badaf58598571d2d96347ff7839eb387ae7ef87b3ee8a9d8a509807e50",
       "tags": [
         "中文",
         "宋体",
@@ -228,7 +228,7 @@
       "downloadPath": "releases/download/fonts-v1/zhuque-fangsong.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/zhuque-fangsong.zip",
       "size": 8828997,
-      "sha256": "5aa1b1bdc36a1d1cdfa1cca45d09c8de0f040d9cc18a706a7393ec8b4ca8e4df",
+      "sha256": "af9e96f23214f37f41d0c3982e911aca791c3e5935ee099e47caf1555904b257",
       "tags": [
         "中文",
         "仿宋",
@@ -259,7 +259,7 @@
       "downloadPath": "releases/download/fonts-v1/lxgw-neoxihei.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/lxgw-neoxihei.zip",
       "size": 9051194,
-      "sha256": "6d688c607fb860066470322550bc01d8c82e3b40f73d4ecf53e23e87157f6c40",
+      "sha256": "ec73277e7b2bd7c6704e215260f4bcd0c5e1762ccbae17bab6d10765b7c8e2d8",
       "tags": [
         "中文",
         "黑体",
@@ -290,7 +290,7 @@
       "downloadPath": "releases/download/fonts-v1/lxgw-wenkai-screen.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/lxgw-wenkai-screen.zip",
       "size": 26463344,
-      "sha256": "7cf729cd5eafbd5ceebc10482d935d6e24d6431fb31fe2fbda74fc0118220060",
+      "sha256": "9d27bf87c6c43631f8ed3507d149e8f0ffb83ac8de58a37856cb11d71bd13219",
       "tags": [
         "中文",
         "楷体",
@@ -327,7 +327,7 @@
       "downloadPath": "releases/download/fonts-v1/glow-sans-sc.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/glow-sans-sc.zip",
       "size": 64490078,
-      "sha256": "99d8628d37c1f4ce540a2ade607ba41e9020ad76f770d9811b1839eed39ebf7d",
+      "sha256": "0620154e90d6e1f8366c01ae1a59c1ccc24a31ba371ce820c3f3c3e0959a68b8",
       "tags": [
         "中文",
         "黑体",
@@ -358,7 +358,7 @@
       "downloadPath": "releases/download/fonts-v1/lxgw-zhenkai.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/lxgw-zhenkai.zip",
       "size": 17459260,
-      "sha256": "e839b8d34e0a061f5c01bba94730341745d576bf5e7b9cc69aa7baabf4b2089f",
+      "sha256": "f1e8a41f559648280e00baaef8d8ceb728f1173d3fe59f943d667f876133aaa1",
       "tags": [
         "中文",
         "楷体",
@@ -388,7 +388,7 @@
       "downloadPath": "releases/download/fonts-v1/chill-round-m.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/chill-round-m.zip",
       "size": 11284240,
-      "sha256": "9aabe9aa7b9103df4a5aa2d15bf80155edaf515b635317b5b1f05d3b323c949d",
+      "sha256": "871aa85c2720cff56dacda9cfdf4935b744b070cad4cb29430299023cd69195e",
       "tags": [
         "中文",
         "圆体",
@@ -418,7 +418,7 @@
       "downloadPath": "releases/download/fonts-v1/fira-code.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/fira-code.zip",
       "size": 291186,
-      "sha256": "529070777f03c291beeb76883d308bcecb6dd322020ab27c709cdee8ec83b7a3",
+      "sha256": "38b66f725aa72fa1b16fd21304f8a2eeb4cf3efd7842c2b2ccc8ec69ebd28759",
       "tags": [
         "英文",
         "数字",
@@ -449,7 +449,7 @@
       "downloadPath": "releases/download/fonts-v1/cascadia-code.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/cascadia-code.zip",
       "size": 741118,
-      "sha256": "7998d345b247f3f45db844cd42d24d738bf5c9f5acd28efcb345ef717ea334d4",
+      "sha256": "b2453099b0ecadbbb2ef63e2f9a6d8be0829494d9074c2b89f0f571d3018b26c",
       "tags": [
         "英文",
         "数字",
@@ -484,7 +484,7 @@
       "downloadPath": "releases/download/fonts-v1/iosevka.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/iosevka.zip",
       "size": 58694069,
-      "sha256": "fd92af4ab161c6f93fae42d6165f33be4d4263f12c0255e4a85ec730a68bc4c7",
+      "sha256": "85f7061ae5c696a5866da65aa38de83499393103e1195be2ea34bef8cecf9ea6",
       "tags": [
         "英文",
         "数字",
@@ -515,7 +515,7 @@
       "downloadPath": "releases/download/fonts-v1/inter.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/inter.zip",
       "size": 884557,
-      "sha256": "ea11dfdb786b13f2a519e87c0af4645653317cf2797db6e002dfcffee75b7d80",
+      "sha256": "7a99aca35ca14e5b08b89e1db01d3435aee3afe3437b150dc717f0c2d8cd727f",
       "tags": [
         "英文",
         "数字",
@@ -546,7 +546,7 @@
       "downloadPath": "releases/download/fonts-v1/monaspace-neon.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/monaspace-neon.zip",
       "size": 1651531,
-      "sha256": "a4be7cfe3cf5c086523487f75dca7e9760497c4dd611e85a7f96f71febc03f30",
+      "sha256": "94075b97bde6a890ceee176fd90e82dd9ee029650a90eeee412ea8be09d391c1",
       "tags": [
         "英文",
         "数字",
@@ -577,7 +577,7 @@
       "downloadPath": "releases/download/fonts-v1/jetbrains-mono.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/jetbrains-mono.zip",
       "size": 308050,
-      "sha256": "1f3f400b81bb37f7d4da2466284c3cb4a885eb90acd14cbbca38f150bed17683",
+      "sha256": "24841e76b52b9ec08a425947abf9488437be51c34bce423f7e8fe222c6c4188e",
       "tags": [
         "英文",
         "数字",
@@ -608,7 +608,7 @@
       "downloadPath": "releases/download/fonts-v1/geist.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/geist.zip",
       "size": 173909,
-      "sha256": "b9616108bb5340f3ca19d1dd98d5ead085afa5a3d1ba23b33e9b23333291fa67",
+      "sha256": "f4fb53c569ca22338b03aaa42cdb648e86d39a2ee4da331acace6733c5664c1a",
       "tags": [
         "英文",
         "数字",
@@ -639,7 +639,7 @@
       "downloadPath": "releases/download/fonts-v1/roboto-flex.zip",
       "downloadUrl": "https://github.com/shishui611-art/Ziyu-Fonts/releases/download/fonts-v1/roboto-flex.zip",
       "size": 1792305,
-      "sha256": "c42a37748660af03fb258aca37cde2d726443b2f013d524357370c6ece31f606",
+      "sha256": "7d4f1231a5a145880c1baee2e037c2579c80bab02edf0cccccadbbdb621f8ae9",
       "tags": [
         "英文",
         "数字",
